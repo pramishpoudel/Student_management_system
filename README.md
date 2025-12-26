@@ -79,11 +79,55 @@ All API endpoints are prefixed with `/api/` (assuming you configure it in your m
 - The system uses basic authentication. Include credentials in requests where required.
 - For production, implement token-based authentication (e.g., via DRF's TokenAuthentication).
 
+## API Documentation
+
+### URL Structure
+
+The API is organized with the following URL prefixes:
+
+| Prefix          | Included App          |
+|-----------------|-----------------------|
+| `/admin/`       | Django admin          |
+| `/api/accounts/`| Accounts app URLs     |
+| `/api/`         | Assignments app URLs  |
+
+### Authentication
+
+- The system uses basic authentication. Include credentials in requests where required.
+- For production, implement token-based authentication (e.g., via DRF's TokenAuthentication).
+
 ### API Endpoints
+
+#### Accounts App Endpoints
+
+These endpoints are prefixed with `/api/accounts/`.
+
+| Endpoint                  | Method      | Description                  |
+|---------------------------|-------------|------------------------------|
+| `/mentor/login/`          | POST        | Mentor login                 |
+| `/mentor/signup/`         | POST        | Mentor signup                |
+| `/students/<int:id>/`     | GET         | List students for a mentor   |
+| `/students/add/`          | POST        | Add a new student            |
+| `/students/<int:pk>/edit/`| PUT/PATCH   | Edit student details         |
+| `/students/<int:pk>/delete/`| DELETE   | Delete a student             |
+
+#### Assignments App Endpoints
+
+These endpoints are prefixed with `/api/`.
+
+| Endpoint                  | Method      | Description                  |
+|---------------------------|-------------|------------------------------|
+| `/assignments/create/`    | POST        | Create a new assignment      |
+| `/assignments/assign/`    | POST        | Assign an assignment to students |
+| `/submissions/create/`    | POST        | Submit an assignment         |
+| `/mentor/submissions/`    | GET         | List submissions for a mentor|
+| `/progress/create/`       | POST        | Record student progress      |
+
+### Detailed Endpoint Information
 
 #### Assignments
 - **Create Assignment** (Mentors only):
-  - **Endpoint**: `POST /assignments/create/`
+  - **Full Endpoint**: `POST /api/assignments/create/`
   - **Description**: Create a new assignment.
   - **Request Body**:
     ```json
@@ -97,7 +141,7 @@ All API endpoints are prefixed with `/api/` (assuming you configure it in your m
   - **Response**: Assignment details.
 
 - **Assign Students to Assignment**:
-  - **Endpoint**: `POST /assignments/assign/`
+  - **Full Endpoint**: `POST /api/assignments/assign/`
   - **Description**: Link students to an assignment.
   - **Request Body**:
     ```json
@@ -110,14 +154,14 @@ All API endpoints are prefixed with `/api/` (assuming you configure it in your m
 
 #### Submissions
 - **Create Submission** (Students only):
-  - **Endpoint**: `POST /submissions/create/`
+  - **Full Endpoint**: `POST /api/submissions/create/`
   - **Description**: Submit a file for an assigned assignment.
   - **Request Body**: Multipart form data with `student_assignment` (ID) and `file`.
   - **Response**: Submission details.
 
 #### Mentor Views
 - **List Submissions for Mentor**:
-  - **Endpoint**: `GET /mentor/submissions/?mentor_id=<id>`
+  - **Full Endpoint**: `GET /api/mentor/submissions/?mentor_id=<id>`
   - **Description**: Retrieve all submissions for assignments mentored by the specified mentor, including student names, assignment titles, mentor names, and feedback.
   - **Response Example**:
     ```json
@@ -136,7 +180,7 @@ All API endpoints are prefixed with `/api/` (assuming you configure it in your m
 
 #### Progress
 - **Create/Update Progress** (Mentors only):
-  - **Endpoint**: `POST /progress/create/`
+  - **Full Endpoint**: `POST /api/progress/create/`
   - **Description**: Review a submission and add feedback/status.
   - **Request Body**:
     ```json
@@ -192,7 +236,13 @@ Student_management_system/
 ```
 
  
+#For accessing meterial just put base url:
+  http://16.171.250.14:8000 
+    and following are the end point you want to use:
+    Example: http://16.171.250.14:8000/api/assignments/create/
 
+    
+   
  
 
  
